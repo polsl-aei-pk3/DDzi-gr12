@@ -3,12 +3,12 @@
 using namespace std;
 class Punkt
 {
-private:
+protected:
 	float x;
 	float y;
 
 public:
-	Punkt() {};
+	Punkt() { x = 0; y = 0; };
 	void drukuj()
 	{
 	cout<< "Wspolrzedne punktu:" << x << " x " << y << endl;
@@ -25,9 +25,10 @@ public:
 	}
 	void operator=(Punkt& p)
 	{
-		x = p.x;
-		y = p.y;
-
+		if (this != nullptr) {
+			x = p.x;
+			y = p.y;
+		}
 	}
 	Punkt operator+=(Punkt &p)
 	{
@@ -50,6 +51,7 @@ public:
 			return 0;
 	}
 	friend ostream& operator<<(ostream& wyjscie,const Punkt & p );
+	
 
 
 };
@@ -64,23 +66,36 @@ private:
 	Punkt* w;
 	int dl;
 public:
-	Tablica() {};
-	Tablica(int dl_ = 0) {
+	
+	Tablica() { dl = 0; w = nullptr; };
+	Tablica(Punkt p, int dl_)
+	{
+			*w = p;
+			dl = dl_;
+	}
+	Tablica(int dl_=0,Punkt *w=nullptr) {
 		dl = dl_;
-		*w = new Punkt(0, 0)[dl_];
+		 w = new Punkt[dl_] ;
 	}
 	bool porownaj(Tablica t_)
 	{
 		if (dl > t_.dl)return 1;
 		else return 0;
 	}
-	void dodaj(Tablica& t_)
+	void dodaj(Tablica &t_)
 	{
-		dl += t_.dl;
+		if (t_.dl == dl)
+		{
+			
+			for (int i = 0; i < dl; i++) {
+				w[i].dodaj(t_.w[i]);
+			}
+		}
+		
 	}
 	~Tablica()
 	{
-		delete w;
+		delete[] w;
 	}
 	Tablica(Tablica& t_)
 	{
@@ -89,13 +104,14 @@ public:
 	}
 	Tablica(float* x, float* y, int dl_)
 	{
-		Punkt w(*x, *y);
+	
 		dl = dl_;
-	}
-	Tablica(float *x, float *y, int dl_)
-	{
-		//*w = new Punkt(0, 0)[dl_];
-		w = Punkt(x[0], y[0]);
+		w = new Punkt[dl_];
+		for (int i = 0; i < dl_; i++)
+		{
+			Punkt P(x[i], y[i]);
+			w[i] = P;
+		}
 	}
 	int operator==(Tablica& w)
 	{
@@ -104,18 +120,105 @@ public:
 	friend ostream& operator<<(ostream& wyjscie, const Tablica& t);
 	Tablica operator+=(Tablica& T)
 	{
-		this->dl = T.dl;
-		this->w += T.w;
-		return (*this);
+		Tablica temp(dl+T.dl);
+		w = new Punkt[temp.dl];
+		for (int i = 0; i < dl; i++)
+		{
+			temp.w[i] = w[i];
+		}
+		for (int i = dl; dl < temp.dl ; i++)
+		{
+			temp.w[i] = w[i];
+		}
+
 	}
 	
 
 	
 };
 
-ostream& operator<<(ostream& wyjscie, const Tablica&t)
+ostream& operator<<(ostream& wyjscie, const Tablica& t)
 {
-	return
-		wyjscie << "Dlugosc tablicy: " << t.dl << ", wspolrzedna x: "; cout << t.w;
+	
+	
 
+		return wyjscie << "Dlugosc tablicy i 1-y punkt : " << t.dl<<" "<< t.w[0];
+
+	
 }
+class Wektor:public Punkt
+{
+protected:
+	float dlugosc;
+	float kierunek;
+public:
+	Wektor(float _x=0,float _y=0):Punkt(x,y)
+	{
+		x = _x;
+		y = _y;
+		dlugosc = sqrt((x * y) + (x * y));
+		kierunek = atan(y / x);
+	}
+	int operator==(Wektor& w)
+	{
+		if (dlugosc == w.dlugosc && kierunek == w.kierunek)
+			return 3;
+		if (dlugosc == w.dlugosc && kierunek != w.kierunek)
+			return 2;
+		if (dlugosc != w.dlugosc && kierunek == w.kierunek)
+			return 1;
+		else return 0;
+	}
+	void dodaj(Wektor w)
+	{
+		Punkt::dodaj(w);
+		dlugosc = sqrt((x * y) + (x * y));
+		kierunek = atan(y / x);	
+	}
+	void drukuj()
+	{
+		Punkt::drukuj();
+		cout << "Dlugosc:" << dlugosc << " Kierunek: " << kierunek << endl<<endl;
+	}
+	void operator=(Wektor&w)
+	{
+		if (this != nullptr) {
+			x = w.x;
+			y = w.y;
+			dlugosc = sqrt((x * y) + (x * y));
+			kierunek = atan(y / x);
+		}
+	}
+
+};
+class tablicaWektorow :public Wektor
+{
+public:
+	Wektor* vek;
+	int rozmiar;
+
+	tablicaWektorow(int rozm):Wektor(dlugosc,kierunek)
+	{
+		Wektor x(0, 0);
+		rozmiar = rozm;
+		vek = new Wektor[rozm];
+		for (int i = 0; i < rozm; i++)
+			vek[i] = x;
+	}
+	void print()
+	{
+		cout << " Rozmiar tablicy wektorow:" << rozmiar << endl;
+		for (int i = 0; i < rozmiar; i++)
+		{
+
+			vek[i].drukuj();
+			
+
+		}
+	
+	}
+};
+class sortedTabWek :public tablicaWektorow
+{
+
+};
