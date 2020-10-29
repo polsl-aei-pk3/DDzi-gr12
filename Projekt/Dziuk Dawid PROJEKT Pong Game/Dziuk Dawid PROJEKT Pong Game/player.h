@@ -4,8 +4,8 @@ using namespace std;
 class Player {
 	float x;
 	float y;
-	float xSpeed;
 	float ySpeed;
+	int score;
 
 	Player(bool p)
 	{
@@ -21,6 +21,13 @@ class Player {
 	void move()
 	{
 
+	}
+	void checkWin()
+	{
+		if(score==10){
+		//	 newGame();
+		// addToRanking();
+		}
 	}
 
 

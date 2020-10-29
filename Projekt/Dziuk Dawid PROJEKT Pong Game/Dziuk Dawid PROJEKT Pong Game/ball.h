@@ -3,34 +3,28 @@
 using namespace std;
 
 class Ball {
-	float x;
-	float y;
-	float xSpeed;
+	float x; // width/2
+	float y;	//height/2
+	float xSpeed; 
 	float ySpeed;
 
-	void render()
-	{
+	void render()	{
 
 	}
-	void move()
-	{
+	void move()	{
 		x += xSpeed;
 		y += ySpeed;
 	}
-	void wallBounce()
-	{
+	void wallBounce()	{
 
 	}
-	void playerBounce()
-	{
+	void playerBounce()	{
 
 	}
-	void p1Scores()
-	{
+	void p1Scores()	{
 
 	}
-	void p2Scores()
-	{
+	void p2Scores(){
 
 	}
 
