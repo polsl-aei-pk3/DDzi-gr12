@@ -138,10 +138,12 @@
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="bonus.h" />
+    <ClInclude Include="engine.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="ranking.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="engine.cpp" />
     <ClCompile Include="ranking.cpp" />
     <ClCompile Include="Źródło.cpp" />
   </ItemGroup>
