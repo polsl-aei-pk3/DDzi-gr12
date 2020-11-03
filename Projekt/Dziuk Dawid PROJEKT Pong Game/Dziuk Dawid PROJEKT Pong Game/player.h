@@ -34,15 +34,15 @@ public:
 		float acceleration = 0.5;
 		float ySpeed = 0;
 		
-		if (y > 0 && y < (720 - 150)) { //JESLI GRACZE ZNAJDUJE SIE W OKNIE TO WYKONAC RUCH
+		if (y > -1 && y < (720 - 150 + 1)) { //JESLI GRACZE ZNAJDUJE SIE W OKNIE TO WYKONAC RUCH
 			ySpeed = ySpeed + acceleration;
 			y = y + ySpeed * dir;
 
 		}
-		else if (y == 0)
-			y = 1;
-		else if (y == (720 - 150))
-			y = 720 - 151;
+		else if (y == -1) //JESLI GRACZ WYCHODZI POZA GORNA GRANICE
+			y = 0;
+		else if (y == (720 - 150 + 1))//JESLI GRACZ WYCHODZI POZA DOLNA GRANICE
+			y = 720 - 150;
 	}
 	void checkWin()
 	{

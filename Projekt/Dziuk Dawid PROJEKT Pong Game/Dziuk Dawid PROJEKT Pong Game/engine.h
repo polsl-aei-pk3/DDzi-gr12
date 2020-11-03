@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "player.h"
+#include "ball.h"
 using namespace sf;
 /*
 	Klasa, ktora dziala jako silnik gry.
@@ -17,11 +18,13 @@ private:
 	Event ev;
 	Player p1;
 	Player p2;
+	Ball ball;
 	
 	//PRYWATNE FUNKCJE
 	void initVar();
 	void initWind();
 	void initPlayers();
+	void initBall();
 
 public:
 	//KONSTRUKTORY DESTRUKTORY

@@ -1,6 +1,7 @@
 #pragma once
 #include "engine.h"
 #include "player.h"
+#include "ball.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 using namespace sf;
@@ -24,12 +25,18 @@ void Engine::initPlayers()
 	p2.Rside = false;
 }
 
+void Engine::initBall()
+{
+	Ball ball;
+}
+
 //KONSTRUKTORY DESTRUKTORY
 Engine::Engine()
 {
 	this->initVar();
 	this->initWind();
 	this->initPlayers();
+	//this->initBall();
 }
 
 Engine::~Engine()
@@ -46,7 +53,8 @@ const bool Engine::running() const
 void Engine::update()
 {
 	this->pollEvents();
-
+	ball.move();
+	ball.wallBounce();
 }
 
 void Engine::render()
@@ -63,6 +71,7 @@ void Engine::render()
 	this->okno->clear(Color(255, 220, 245));
 	p1.render(okno);
 	p2.render(okno);
+	ball.render(okno);
 	
 	//RYSUJ GRE
 	this->okno->display();
