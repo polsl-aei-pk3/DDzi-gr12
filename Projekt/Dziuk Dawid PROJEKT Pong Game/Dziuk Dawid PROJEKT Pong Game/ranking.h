@@ -8,5 +8,5 @@ struct Gracze {
 	Gracze* pNext;
 };
 void showRanking(Gracze* players);
-void addScore(string nickname, Gracze*& players);
-void addToRanking(string nickname, Gracze*& players);
+bool addScore(Gracze*& players,string nickname);
+void addToRanking(Gracze*& players, string nickname);

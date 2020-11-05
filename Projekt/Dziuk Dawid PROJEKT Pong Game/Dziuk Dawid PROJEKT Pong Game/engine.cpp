@@ -35,6 +35,11 @@ void Engine::initBall()
 	ball.player2_pointer = &p2;
 }
 
+void Engine::initRank()
+{
+	ranking = nullptr;
+}
+
 void Engine::initScore()
 {
 	
@@ -72,6 +77,7 @@ Engine::Engine()
 	this->initPlayers();
 	this->initBall();
 	this->initScore();
+	this->initRank();
 	
 }
 
@@ -80,11 +86,6 @@ Engine::~Engine()
 	delete this->okno;
 }
 
-//AKCESORY
-const bool Engine::running() const
-{
-	return this->okno->isOpen();
-}
 //FUNKCJE
 void Engine::update()
 {
@@ -95,6 +96,7 @@ void Engine::update()
 	ball.playerBounce(p2);
 	score(p2);
 	score(p1);
+	addToRanking("asd",ranking);
 }
 
 void Engine::render()
@@ -139,4 +141,8 @@ void Engine::pollEvents()
 			this->okno->close();
 		
 	}
+}
+void Engine::addToRanking(string nick, Gracze* pHeead)
+{
+	
 }
