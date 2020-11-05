@@ -17,6 +17,7 @@ private:
 	float xHI=0.4;
 	float xLOW=0.25;
 		friend class Engine;
+		friend class Player;
 
 	void render(RenderWindow* okno)	{
 		CircleShape ball(radius, 50);
@@ -36,7 +37,17 @@ private:
 		if (x < 0)
 			p1Scores();
 	}
-	void playerBounce()	{
+	void playerBounce(Player p)	{
+		if (p.Rside == true)
+		{
+			if (x+radius>1080-(50+p.gap))
+				xSpeed = xSpeed * (-1);
+		}
+		if (p.Rside == false)
+		{
+			if (((p.gap + 25) >= x)   && (y>p.y) && (y<p.y + p.rect.getPosition().y    ))
+				xSpeed = xSpeed * (-1);
+		}
 
 	}
 	void p1Scores()	{

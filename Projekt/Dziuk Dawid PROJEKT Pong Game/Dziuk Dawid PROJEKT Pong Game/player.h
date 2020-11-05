@@ -1,36 +1,36 @@
 #ifndef Player_H_INCLUDED 
 #define Player_H_INCLUDED 
-
+#include <iostream>
+#include <SFML/Graphics.hpp>
 using namespace sf;
 class Player {
 	friend class Engine;
+	friend class Ball;
 protected:
 	bool Rside;
 	float x;
 	float gap = 25;
 	float y=(float)(720/2);
 	int score=0;
-
+	RectangleShape rect;
+	float szer = 25;
+	float wys = 150;
+	Vector2f wymiary = { szer,wys };
+	
 	//float acceleration = 0;
 	//float ySpeed;
 public:
 	void render(RenderWindow* okno)
 	{
-		if (Rside) {
-			RectangleShape player1(Vector2f(25, 150));
-			player1.setPosition(x + gap, y);
-			okno->draw(player1);
-		}
-		else {
-			RectangleShape player2(Vector2f(25, 150));
-			player2.setPosition(1080 - gap - 25, y);
-			okno->draw(player2);
-		}
+		rect.setSize(wymiary);
+		if (Rside) 		
+			rect.setPosition(x + gap, y);
+		else		
+			rect.setPosition(1080-gap-szer, y);
+		okno->draw(rect);
 	}
 	void move(int dir)
 	{
-		
-
 		float acceleration = 0.5;
 		float ySpeed = 0;
 		

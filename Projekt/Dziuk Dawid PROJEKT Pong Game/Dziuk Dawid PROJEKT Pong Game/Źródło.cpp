@@ -1,6 +1,4 @@
 #include <iostream>
-//#include "ball.h"
-//#include "player.h"
 #include "ranking.h"
 #include "engine.h"
 #include <SFML/Graphics.hpp>

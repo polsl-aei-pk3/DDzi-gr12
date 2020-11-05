@@ -55,6 +55,8 @@ void Engine::update()
 	this->pollEvents();
 	ball.move();
 	ball.wallBounce();
+	ball.playerBounce(p1);
+	ball.playerBounce(p2);
 }
 
 void Engine::render()
