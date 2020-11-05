@@ -2,16 +2,18 @@
 #define Player_H_INCLUDED 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+using namespace std;
 using namespace sf;
 class Player {
 	friend class Engine;
 	friend class Ball;
 protected:
+	Font font;
 	bool Rside;
-	float x;
+	//float x;
 	float gap = 25;
 	float y=(float)(720/2);
-	int score=0;
+	int pkt=0;
 	RectangleShape rect;
 	float szer = 25;
 	float wys = 150;
@@ -23,8 +25,8 @@ public:
 	void render(RenderWindow* okno)
 	{
 		rect.setSize(wymiary);
-		if (Rside) 		
-			rect.setPosition(x + gap, y);
+		if (!Rside) 		
+			rect.setPosition(gap, y);
 		else		
 			rect.setPosition(1080-gap-szer, y);
 		okno->draw(rect);
@@ -46,12 +48,17 @@ public:
 	}
 	void checkWin()
 	{
-		if(score==10){
+		if(pkt==10){
 		//	 newGame();
 		// addToRanking();
 		}
 	}
+	void score()
+	{
+		
+		
+	}
 
-
+	
 };
 #endif

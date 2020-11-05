@@ -19,12 +19,16 @@ private:
 	Player p1;
 	Player p2;
 	Ball ball;
-	
+	Font font;
+	Text scoreTextP1;
+	Text scoreTextP2;
 	//PRYWATNE FUNKCJE
 	void initVar();
 	void initWind();
 	void initPlayers();
 	void initBall();
+	void initScore();
+	void score(Player p);
 
 public:
 	//KONSTRUKTORY DESTRUKTORY

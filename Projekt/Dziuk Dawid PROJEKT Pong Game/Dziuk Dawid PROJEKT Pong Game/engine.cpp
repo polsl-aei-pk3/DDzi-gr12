@@ -1,6 +1,7 @@
 #pragma once
 #include "engine.h"
 #include "player.h"
+#include <string>
 #include "ball.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -21,14 +22,47 @@ void Engine::initWind()
 
 void Engine::initPlayers()
 {
-	p1.Rside = true;
+	
+	//font.loadFromFile("font.ttf"); //INICIALIZACJA CZCIONKI SCORE
+	p1.Rside = true;	
 	p2.Rside = false;
 }
 
 void Engine::initBall()
 {
-	Ball ball;
+	
+	ball.player1_pointer = &p1;
+	ball.player2_pointer = &p2;
 }
+
+void Engine::initScore()
+{
+	
+	if (!font.loadFromFile("font.ttf"))
+		cout << "Wystapil problem ze wczytaniem czcionki";
+	
+	scoreTextP1.setString(to_string(0));
+	scoreTextP1.setCharacterSize(50);
+	scoreTextP1.setFillColor(Color::Black);
+	scoreTextP1.setPosition(50, 35);
+	scoreTextP1.setFont(font);
+
+	scoreTextP2.setString(to_string(0));
+	scoreTextP2.setCharacterSize(50);
+	scoreTextP2.setFillColor(Color::Black);
+	scoreTextP2.setPosition(1000, 35);
+	scoreTextP2.setFont(font);
+}
+void Engine::score(Player p)
+{
+	if(p.Rside)
+	scoreTextP1.setString(to_string(p.pkt));
+	else
+	scoreTextP2.setString(to_string(p.pkt));
+	
+}
+
+
 
 //KONSTRUKTORY DESTRUKTORY
 Engine::Engine()
@@ -36,7 +70,9 @@ Engine::Engine()
 	this->initVar();
 	this->initWind();
 	this->initPlayers();
-	//this->initBall();
+	this->initBall();
+	this->initScore();
+	
 }
 
 Engine::~Engine()
@@ -57,6 +93,8 @@ void Engine::update()
 	ball.wallBounce();
 	ball.playerBounce(p1);
 	ball.playerBounce(p2);
+	score(p2);
+	score(p1);
 }
 
 void Engine::render()
@@ -74,6 +112,8 @@ void Engine::render()
 	p1.render(okno);
 	p2.render(okno);
 	ball.render(okno);
+	this->okno->draw(scoreTextP1);
+	this->okno->draw(scoreTextP2);
 	
 	//RYSUJ GRE
 	this->okno->display();
