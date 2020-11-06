@@ -4,36 +4,21 @@
 using namespace std;
 bool addScore(Gracze*& players, string nickname)
 {
-
-
-	
 	auto p = players;
 	if (p) {
-
-		
-
-		
 		while (p->nick != nickname)
 		{
-
-
 			if (p->pNext == nullptr)
 				return 0;
-
 			p = p->pNext;
-		}
-			
+		}	
 		if (p) {
 			p->score++;
 			return 1;
-
 		}
 	}
-	else return 0;
-	
-		
+	else return 0;	
 }
-
 void addToRanking(Gracze*& players, string nickname)
 {
 	//petla po liœcie graczy, jezeli gracz sie znajdue to score++
@@ -47,12 +32,8 @@ void addToRanking(Gracze*& players, string nickname)
 		auto p = players;
 		while (p->pNext) 
 			p = p->pNext;
-		
-			
 		p->pNext = pNowy;
 	}
-
-
 }
 void showRanking(Gracze* players)
 {
@@ -67,5 +48,4 @@ void showRanking(Gracze* players)
 	}
 	else
 		cout << "Ranking jest pusty.";
-
 }

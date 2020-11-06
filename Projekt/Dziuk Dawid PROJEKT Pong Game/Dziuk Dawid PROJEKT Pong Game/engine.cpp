@@ -23,14 +23,33 @@ void Engine::initWind()
 void Engine::initPlayers()
 {
 	
-	//font.loadFromFile("font.ttf"); //INICIALIZACJA CZCIONKI SCORE
+	p1.gap = 25;		
+	p1.y = 720 / 2;
+	p1.pkt = 0;
+
+	p2.gap = 25;		
+	p2.y = 720 / 2;
+	p2.pkt = 0;
+
+	
 	p1.Rside = true;	
 	p2.Rside = false;
 }
 
 void Engine::initBall()
 {
-	
+	ball.yHI = 0.25;
+	ball.yLOW = 0.25;
+	ball.xHI = 0.4;
+	ball.xLOW = 0.25;
+
+	ball.xSpeed = 0.25;
+	ball.ySpeed = 0.25;
+	ball.acc=(-1.1);
+	ball.radius = 20;
+
+	ball.x = 1080 / 2;
+	ball.y = 720 / 2;
 	ball.player1_pointer = &p1;
 	ball.player2_pointer = &p2;
 }
@@ -89,14 +108,23 @@ Engine::~Engine()
 //FUNKCJE
 void Engine::update()
 {
-	this->pollEvents();
+	/*
+		@return void
+
+		-pobiera dane z klawiatury (pollEvents)
+		-porusza pi³k¹ (ball.move)
+		-odbija pilke i sprawdza czy zostal zdobyty punkt (ball.wallBounce)
+		-odbija pilke od gracza (ball.playerBounce)
+		-wyswietla punkty (score)
+	*/
+
+	pollEvents();
 	ball.move();
 	ball.wallBounce();
 	ball.playerBounce(p1);
 	ball.playerBounce(p2);
 	score(p2);
 	score(p1);
-	addToRanking("asd",ranking);
 }
 
 void Engine::render()
@@ -121,28 +149,47 @@ void Engine::render()
 	this->okno->display();
 }
 
+void Engine::endGame(Gracze *&ranking)
+{
+	string nickname;
+	cout << " KONIEC GRY ! " << endl;
+	cout << " Prosze dopisac sie do rankignu zwyciezcow:...";
+	cin >> nickname;
+
+	if (!addScore(ranking, nickname))
+		addToRanking(ranking, nickname);
+}
+
 void Engine::pollEvents()
 {
+
+	//STEROWANIE DLA GRACZA PIERWSZEGO
+	//RUCH W DÓ£
 	if (Keyboard::isKeyPressed(Keyboard::Down))
 		p1.move(1);
+	//RUCH W GÓRE
 	if (Keyboard::isKeyPressed(Keyboard::Up))
 		p1.move(-1);
 
+	//STEROWANIE DLA GRACZA DRUGIEGO
+	//RUCH W DÓ£
 	if (Keyboard::isKeyPressed(Keyboard::S))
 		p2.move(1);
+
+	//RUCH W GÓRE
 	if (Keyboard::isKeyPressed(Keyboard::W))
 		p2.move(-1);
 
+	//KIEDY GRA MA SIE WYLACZYC
 	while (this->okno->pollEvent(this->ev))
 	{
+		//GDY ZOSTANIE ZAMNIETE OKNO
 		if (ev.type == Event::Closed)
 			this->okno->close();
+
+		//GDY ZOSTANIE WCISNIETY PRZYCISK ESCAPE
 		if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::Escape)
 			this->okno->close();
 		
 	}
-}
-void Engine::addToRanking(string nick, Gracze* pHeead)
-{
-	
 }
