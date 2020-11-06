@@ -19,13 +19,21 @@ int main()
 	
 	User Bartek(&skrzynkaBartka, b,  id++);
 	User Dawid(&skrzynkaDawida, d, id++);
+	User Czesio(&skrzynkaCzesia, c, id++);
+	User Emil(&skrzynkaEmila, e, id++);
 
 	string msg = "msg";
 	Bartek.send(msg, Dawid);
-	skrzynkaBartka.print();
-	skrzynkaDawida.print();
 	Bartek.send(msg, Dawid);
+	Bartek.send(msg, Dawid);
+	Bartek.send(msg, Emil);
+	Dawid.send(msg, Bartek);
+	Dawid.send(msg, Bartek);
+	Czesio.send(msg, Emil);
+	skrzynkaBartka.print();
+	skrzynkaEmila.print();
 	skrzynkaDawida.print();
+	skrzynkaCzesia.print();
 
 
 

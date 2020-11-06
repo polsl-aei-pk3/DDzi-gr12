@@ -13,11 +13,9 @@ bool MailBox::send(string& msg, User* sender, User* reciever)
 		return false;
 	else
 	{
-		static int i = 0;
-		//cout<<msg;
-	
-		reciever->mb->mbox[i] = msg;
-		i++;
+		
+		reciever->mb->mbox[reciever->i] = msg;
+		reciever->i++;
 		return true;
 	}
 
@@ -30,6 +28,6 @@ void MailBox::print()
 {
 	for (int i = 0; i < N; i++)
 	{
-		cout << "Wiadomosc " << i << ": " << mbox[i] << endl;
+		cout <<"Wiadomosc " << i << ": " << mbox[i] << endl;
 	}
 }; // wyœietla wszystkie wiadomoœci w skrynce

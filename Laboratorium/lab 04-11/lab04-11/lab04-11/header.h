@@ -31,6 +31,7 @@ class  User
 	friend class MailBox;
 	int id = 0; // zmienna statyczna inkrementowana w konstruktorze bêd¹ca id nastêpnego  u¿ytkownika
 	int myid; // id u¿ytkownika
+	int i = 0;
 	string nickname;// nazwa u¿ytkownika
 
 	//*adres skrzynki z któr¹ jest zwiazany u¿ytkownik
