@@ -9,15 +9,21 @@ static class User* wsk; // UWAGA zale¿noœæ miêdzy obiektami
 class  MailBox
 {
 	// friend class User; ewntualne uzycie seterów i geterów
-	string mbox[10]; //tablica wiadomoœci od  uzytkownikow skrzynki
-	string logname;	
+	string mbox[10]; //tablica wiadomoœci od  uzytkownikow skrzynki	
 	int i = 0;			// indeksem tablicy jest id uzytkownika
-	string backupname;
 	ofstream log; //plik z raportem
 	ofstream backup; // zawartoœæ mbox do pliku backup gdy usuwamy obiekt
 public:
-	MailBox(string &log_, string& backup_) : logname(log_), backupname(backup_) {	}// je¿eli plik backup  ju¿ istnieje wczytuje go do mbox
-	//~MailBox();
+	MailBox(string &log_, string& backup_){	
+		log.open(log_+".txt", ios::app);
+		backup.open(backup_+".txt", ios::app);
+
+	}// je¿eli plik backup  ju¿ istnieje wczytuje go do mbox
+	~MailBox()
+	{
+		log.close();
+		backup.close();
+	}
 	// zapisuje wszystkie wiadomoœci do backup i usuwa z pamiêci
 	// Uwaga poni¿sze metody musz¹ byæ w osobnym pliku:
 	bool send(string& msg, User* sender, User* reciever); // uzytkownik sender wysyla wiadomosc msg do uzytkownika reciever

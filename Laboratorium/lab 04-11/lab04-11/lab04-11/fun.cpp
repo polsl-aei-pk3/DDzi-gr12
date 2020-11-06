@@ -15,7 +15,10 @@ bool MailBox::send(string& msg, User* sender, User* reciever)
 	{
 		
 		reciever->mb->mbox[reciever->i] = msg;
-		reciever->i++;
+	
+	
+		reciever->mb->log << "Wiadomosc #" << reciever->i <<" "<< reciever->mb->mbox[reciever->i] << endl;
+			reciever->i++;
 		return true;
 	}
 
